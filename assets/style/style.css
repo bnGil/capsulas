@@ -1,0 +1,60 @@
+:root {
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.search-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.search-item {
+  margin: 0 2rem;
+}
+
+.container {
+  margin: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  /* text-align: center; */
+  margin: 0.2rem 0;
+}
+.cell {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.header {
+  background-color: turquoise;
+}
+
+.btn {
+  margin: 0 0.2rem;
+  flex: 0.5;
+}
+
+.edit-btn {
+  background-color: green;
+}
+
+.delete-btn {
+  background-color: red;
+}
+
+.hidden {
+  visibility: hidden;
+}
