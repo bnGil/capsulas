@@ -3,7 +3,7 @@ const body = document.querySelector('body');
 let container = document.querySelector('.container');
 const category = document.getElementById('category');
 const arrOfSortBtns = document.querySelectorAll('.sort-btn');
-let people;
+let people, clonePeople;
 
 async function getFetchData(url) {
   const res = await fetch(url);
@@ -50,6 +50,7 @@ const addButtons = (row) => {
   row.appendChild(editBtn);
   editBtn.innerText = 'Edit';
   editBtn.classList.add('btn', 'edit-btn');
+
   editBtn.addEventListener('click', (e) => {
     row
       .querySelectorAll('input.cell')
@@ -60,11 +61,13 @@ const addButtons = (row) => {
 
     const confirm = document.createElement('button');
     confirm.textContent = 'confirm';
+    confirm.classList.add('btn');
     // confirm.classList.add('btn');
     row.appendChild(confirm);
 
     const cancel = document.createElement('button');
     cancel.textContent = 'Cancel';
+    cancel.classList.add('btn');
     // cancel.classList.add('btn');
     row.appendChild(cancel);
 
@@ -112,7 +115,17 @@ const addButtons = (row) => {
   row.appendChild(deleteBtn);
   deleteBtn.innerText = 'Delete';
   deleteBtn.classList.add('btn', 'delete-btn');
-  deleteBtn.addEventListener('click', (e) => {});
+  deleteBtn.addEventListener('click', (e) => {
+    const persons = people.filter((person) => {
+      return person.id !== row.querySelector(':first-child').value;
+    });
+    people = [...persons];
+    // localStorage.setItem('people', { people }.stringify());
+    // localStorage.setObj('people', people);
+    localStorage.setItem('people', JSON.stringify(people));
+    console.log(people);
+    row.remove();
+  });
 };
 
 const drawTable = (arrOfData) => {
@@ -201,9 +214,14 @@ function sortHandler(e) {
 
 const paintPage = async () => {
   people = await getArrOfPeople();
-  const clonePeople = [...people];
+  clonePeople = [...people];
   drawTable(people);
   input.addEventListener('keyup', searchHandler);
   arrOfSortBtns.forEach((e) => e.addEventListener('click', sortHandler));
 };
 paintPage();
+
+const restart = document.querySelector('#restart');
+restart.addEventListener('click', () => {
+  drawTable(clonePeople);
+});

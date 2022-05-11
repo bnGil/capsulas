@@ -16,12 +16,15 @@
 
 .search-item {
   margin: 0 2rem;
+  border: 1px solid black;
+  border-radius: 3px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   margin: 0 2rem;
+  background-color: rgb(53, 148, 138);
 }
 
 .row {
@@ -32,14 +35,19 @@
 }
 .cell {
   text-align: center;
-  /* display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1; */
+  flex: 1;
+  width: 100%;
+  background-color: rgb(53, 148, 138);
+}
+
+#header-item {
+  background-color: turquoise;
 }
 
 .header {
-  background-color: turquoise;
   margin: 0 2rem;
   margin-top: 2rem;
 }
