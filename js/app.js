@@ -29,9 +29,10 @@ const addRow = (arrOfData) => {
   const row = document.createElement('div');
   row.classList.add('row');
   arrOfData.forEach((e) => {
-    const cell = document.createElement('div');
+    const cell = document.createElement('input');
     cell.classList.add('cell');
-    cell.textContent = e;
+    cell.value = e;
+    cell.setAttribute('readonly', true);
     row.appendChild(cell);
   });
   addButtons(row);
@@ -40,20 +41,72 @@ const addRow = (arrOfData) => {
 
 const addButtons = (row) => {
   const editBtn = document.createElement('button');
+  let oldRow = row.cloneNode(true);
+  oldRow = oldRow.querySelectorAll('input.cell');
+
   row.appendChild(editBtn);
   editBtn.innerText = 'Edit';
   editBtn.classList.add('btn', 'edit-btn');
   editBtn.addEventListener('click', (e) => {
-    console.log('edit clicked');
+    row
+      .querySelectorAll('input.cell')
+      .forEach((input) => input.removeAttribute('readonly'));
+    row
+      .querySelectorAll('button')
+      .forEach((button) => (button.style.display = 'none'));
+
+    const confirm = document.createElement('button');
+    confirm.textContent = 'confirm';
+    // confirm.classList.add('btn');
+    row.appendChild(confirm);
+
+    const cancel = document.createElement('button');
+    cancel.textContent = 'Cancel';
+    // cancel.classList.add('btn');
+    row.appendChild(cancel);
+
+    cancel.addEventListener('click', (e) => {
+      row
+        .querySelectorAll('input')
+        .forEach((input, index) => (input.value = oldRow[index].value));
+      row.querySelector('.edit-btn').style.display = 'block';
+      row.querySelector('.delete-btn').style.display = 'block';
+      cancel.remove();
+      confirm.remove();
+      row
+        .querySelectorAll('input.cell')
+        .forEach((input) => input.setAttribute('readonly', 'true'));
+      // console.log('clicked');
+      // oldRow.forEach((input) => console.log(input.value));
+    });
+
+    confirm.addEventListener('click', (e) => {
+      people.find((person) => {
+        console.log(person);
+      });
+      // console.log('id : ', row.querySelector(':first-child').value);
+      row
+        .querySelectorAll('input')
+        .forEach((input, index) => (input.value = input.value));
+      row.querySelector('.edit-btn').style.display = 'block';
+      row.querySelector('.delete-btn').style.display = 'block';
+      cancel.remove();
+      confirm.remove();
+      row
+        .querySelectorAll('input.cell')
+        .forEach((input) => input.setAttribute('readonly', 'true'));
+      // console.log('clicked');
+      // oldRow.forEach((input) => console.log(input.value));
+    });
+
+    console.log(row);
   });
 
   const deleteBtn = document.createElement('button');
   row.appendChild(deleteBtn);
   deleteBtn.innerText = 'Delete';
   deleteBtn.classList.add('btn', 'delete-btn');
-  deleteBtn.addEventListener('click', (e) => {
-    console.log('delete clicked');
-  });
+  deleteBtn.addEventListener('click', (e) => {});
 };
 
 const drawTable = (arrOfData) => {
