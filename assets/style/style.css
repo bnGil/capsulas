@@ -19,9 +19,9 @@
 }
 
 .container {
-  margin: 2rem 2rem;
   display: flex;
   flex-direction: column;
+  margin: 0 2rem;
 }
 
 .row {
@@ -40,6 +40,8 @@
 
 .header {
   background-color: turquoise;
+  margin: 0 2rem;
+  margin-top: 2rem;
 }
 
 .btn {
@@ -57,4 +59,8 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.sort-btn {
+  cursor: pointer;
 }
