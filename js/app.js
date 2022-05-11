@@ -1,6 +1,8 @@
 const input = document.getElementById("input");
 const body = document.querySelector("body");
 const container = document.querySelector(".container");
+const category = document.getElementById("category");
+let people;
 
 async function getFetchData(url) {
   const res = await fetch(url);
@@ -18,13 +20,13 @@ async function getArrOfPeople() {
   );
   return peopleFullData;
 }
-
 const addTitleRow = (title) => {
   const titleBox = document.createElement("div");
   titleBox.classList.add("title");
   titleBox.textContent = title;
   container.appendChild(titleBox);
 };
+
 const addRow = (arrOfData) => {
   const row = document.createElement("div");
   row.classList.add("row");
@@ -63,7 +65,18 @@ const drawTable = (arrOfData) => {
     ]);
   });
 };
+
+function searchHandler(e) {
+  const currentInput = e.target.value;
+  const currentCategory = category.value;
+  // const filteredPeople = people.filter( person =>person[currentCategory].includes(currentInput) )
+  // drawTable(filteredPeople)
+}
+
 const paintPage = async () => {
-  drawTable(await getArrOfPeople());
+  people = await getArrOfPeople();
+  const clonePeople = [...people];
+  drawTable(people);
+  input.addEventListener("keyup", searchHandler);
 };
 paintPage();
