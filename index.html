@@ -4,9 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/style/reset.css" />
+    <link rel="stylesheet" href="./assets/style/style.css" />
     <title>capsulas</title>
   </head>
   <body>
+    <div class="search-container">
+      <h1>My Capsule</h1>
+      <input type="text" id="input" class="search-item" />
+      <select name="category" id="category" class="search-item">
+        <option value="everything">Everything</option>
+        <option value="name">Name</option>
+        <option value="lastname">Last Name</option>
+      </select>
+      <button id="restart" class="search-item">Restart</button>
+    </div>
+    <div class="container">
+      <div class="row header">
+        <div class="cell">ID</div>
+        <div class="cell">Name</div>
+        <div class="cell">Last Name</div>
+        <div class="cell">Capsule</div>
+        <div class="cell">Age</div>
+        <div class="cell">City</div>
+        <div class="cell">Gender</div>
+        <div class="cell">Hobby</div>
+        <button class="btn hidden">Edit</button>
+        <button class="btn hidden">Delete</button>
+      </div>
+    </div>
     <script src="./js/app.js"></script>
   </body>
 </html>
