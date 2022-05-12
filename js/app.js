@@ -3,7 +3,9 @@ const body = document.querySelector('body');
 let container = document.querySelector('.container');
 const category = document.getElementById('category');
 const arrOfSortBtns = document.querySelectorAll('.sort-btn');
-let people, clonePeople;
+let people = [],
+  clonePeople = [],
+  storedPeople = [];
 
 async function getFetchData(url) {
   const res = await fetch(url);
@@ -90,9 +92,9 @@ const addButtons = (row) => {
       const person = people.find((person) => {
         return person.id === row.querySelector(':first-child').value;
       });
-      const keys = Object.keys(person);
-      console.log('keys : ', keys);
-      console.log('person : ', person);
+      // const keys = Object.keys(person);
+      // console.log('keys : ', keys);
+      // console.log('person : ', person);
       // console.log('id : ', row.querySelector(':first-child').value);
       row.querySelectorAll('input').forEach((input, index) => {
         // (8) ['firstName', 'lastName', 'hobby', 'age', 'city', 'gender', 'id', 'capsule']
@@ -222,11 +224,13 @@ function sortHandler(e) {
 }
 
 const paintPage = async () => {
-  var storedPeople = JSON.parse(localStorage.getItem('people'));
-  console.log('storedPeople', storedPeople);
-  if (!storedPeople) people = await getArrOfPeople();
-  else people = [...storedPeople];
-  clonePeople = [...people];
+  storedPeople = JSON.parse(localStorage.getItem('people'));
+  // console.log('storedPeople', storedPeople);
+  if (!storedPeople || storedPeople.length == 0) {
+    people = await getArrOfPeople();
+    clonePeople = [...people];
+  } else people = [...storedPeople];
+
   drawTable(people);
   input.addEventListener('keyup', searchHandler);
   arrOfSortBtns.forEach((e) => e.addEventListener('click', sortHandler));
@@ -234,6 +238,12 @@ const paintPage = async () => {
 paintPage();
 
 const restart = document.querySelector('#restart');
-restart.addEventListener('click', () => {
+
+restart.addEventListener('click', async () => {
+  window.localStorage.clear();
+  storedPeople = [];
+  container.textContent = '';
+  console.log('clonePeople', clonePeople);
+  clonePeople = await getArrOfPeople();
   drawTable(clonePeople);
 });
