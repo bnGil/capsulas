@@ -95,8 +95,17 @@ const addButtons = (row) => {
       console.log('person : ', person);
       // console.log('id : ', row.querySelector(':first-child').value);
       row.querySelectorAll('input').forEach((input, index) => {
-        //person[keys[index]] = row[index];
+        // (8) ['firstName', 'lastName', 'hobby', 'age', 'city', 'gender', 'id', 'capsule']
+        if (index === 0) person['id'] = input.value;
+        else if (index === 1) person['firstName'] = input.value;
+        else if (index === 2) person['lastName'] = input.value;
+        else if (index === 3) person['capsule'] = input.value;
+        else if (index === 4) person['age'] = input.value;
+        else if (index === 5) person['city'] = input.value;
+        else if (index === 6) person['gender'] = input.value;
+        else if (index === 7) person['hobby'] = input.value;
       });
+      localStorage.setItem('people', JSON.stringify(people));
       row.querySelector('.edit-btn').style.display = 'block';
       row.querySelector('.delete-btn').style.display = 'block';
       cancel.remove();
@@ -213,7 +222,10 @@ function sortHandler(e) {
 }
 
 const paintPage = async () => {
-  people = await getArrOfPeople();
+  var storedPeople = JSON.parse(localStorage.getItem('people'));
+  console.log('storedPeople', storedPeople);
+  if (!storedPeople) people = await getArrOfPeople();
+  else people = [...storedPeople];
   clonePeople = [...people];
   drawTable(people);
   input.addEventListener('keyup', searchHandler);
